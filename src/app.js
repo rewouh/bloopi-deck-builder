@@ -23,6 +23,7 @@ function App() {
   const [deck, setDeck] = useState(defaultDeck);
   const [idManual, setIdManual] = useState(false);
   const [toast, setToast] = useState(null);
+  const [showNextSteps, setShowNextSteps] = useState(false);
 
   function showToast(msg, type = 'ok') {
     setToast({ msg, type });
@@ -110,7 +111,7 @@ function App() {
     a.download = `${output.id}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast(`Downloaded ${output.id}.json`);
+    setShowNextSteps(true);
   }
 
   function importDeck() {
@@ -155,6 +156,20 @@ function App() {
         <p class="builder-subtitle">Build a <a href="https://rewouh.github.io/bloopi" target="_blank">Bloopi</a>-compatible deck and download it as JSON.</p>
       </header>
 
+      <details class="guidelines-details">
+        <summary>Deck building guidelines</summary>
+        <div class="guidelines-body">
+          <ul>
+            <li><strong>Write direct prompts, not full questions</strong> — "Longest river in the world" not "What is the longest river in the world?" Skip filler words that waste time during review.</li>
+            <li><strong>One clear correct answer per item</strong> — if multiple answers are plausible, reframe the question to make it unambiguous.</li>
+            <li><strong>The mnemonic is required</strong> — it's the core of the learning experience. A bad mnemonic is worse than none; make it vivid and specific.</li>
+            <li><strong>20–50 items</strong> — below 20 feels thin, above 50 becomes a grind.</li>
+            <li><strong>End the deck name with a two-digit index</strong> — "World Geography 01", not "World Geography". This leaves room for related decks later (02, 03…) without renaming.</li>
+            <li><strong>AI is a starting point, not a source</strong> — triple-check every fact and rewrite every mnemonic. AI-generated mnemonics often sound plausible but don't actually help recall.</li>
+          </ul>
+        </div>
+      </details>
+
       <${DeckMetaForm}
         deck=${deck}
         onUpdate=${updateMeta}
@@ -192,28 +207,30 @@ function App() {
         </button>
       </section>
 
-      <details class="guidelines-details">
-        <summary>Deck building guidelines</summary>
-        <div class="guidelines-body">
-          <ul>
-            <li><strong>Write direct prompts, not full questions</strong> — "Longest river in the world" not "What is the longest river in the world?" Skip filler words that waste time during review.</li>
-            <li><strong>One clear correct answer per item</strong> — if multiple answers are plausible, reframe the question to make it unambiguous.</li>
-            <li><strong>The mnemonic is required</strong> — it's the core of the learning experience. A bad mnemonic is worse than none; make it vivid and specific.</li>
-            <li><strong>20–50 items</strong> — below 20 feels thin, above 50 becomes a grind.</li>
-            <li><strong>End the deck name with a two-digit index</strong> — "World Geography 01", not "World Geography". This leaves room for related decks later (02, 03…) without renaming.</li>
-            <li><strong>AI is a starting point, not a source</strong> — triple-check every fact and rewrite every mnemonic. AI-generated mnemonics often sound plausible but don't actually help recall.</li>
-          </ul>
-        </div>
-      </details>
-
       <footer class="builder-footer">
-        <button type="button" class="outline secondary footer-btn" onClick=${importDeck}>↑ Import JSON</button>
-        <button type="button" class="footer-btn" onClick=${exportDeck}>↓ Download JSON</button>
+        <button type="button" class="outline secondary footer-btn" onClick=${importDeck}>Import JSON</button>
+        <button type="button" class="footer-btn" onClick=${exportDeck}>Download JSON</button>
       </footer>
 
       ${toast && html`
         <div class=${'toast' + (toast.type === 'err' ? ' toast--err' : '')}>
           ${toast.msg}
+        </div>
+      `}
+
+      ${showNextSteps && html`
+        <div class="modal-overlay" onClick=${() => setShowNextSteps(false)}>
+          <div class="modal-card" onClick=${e => e.stopPropagation()}>
+            <h3>Deck downloaded!</h3>
+            <p>To submit it to Bloopi:</p>
+            <ol>
+              <li>Fork the <a href="https://github.com/rewouh/bloopi" target="_blank" rel="noopener noreferrer">Bloopi repository</a></li>
+              <li>Drop your JSON file into the <code>decks/</code> folder</li>
+              <li>Open a pull request</li>
+            </ol>
+            <p class="modal-alt">Not on GitHub? Send the file to <a href="mailto:pbraudcontact@gmail.com">pbraudcontact@gmail.com</a> and I'll handle it.</p>
+            <button type="button" onClick=${() => setShowNextSteps(false)}>Got it</button>
+          </div>
         </div>
       `}
     </main>

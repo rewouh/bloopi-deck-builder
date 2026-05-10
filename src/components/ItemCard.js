@@ -47,7 +47,7 @@ export function ItemCard({ item, index, total, deckId, onChange, onRemove, initi
         <span class="item-preview">${preview}</span>
         <span class=${'ready-dot' + (isReady ? ' ready-dot--ok' : ' ready-dot--no')} title=${isReady ? 'Ready' : 'Incomplete'}></span>
         <button
-          type="button" class="remove-btn"
+          type="button" class="item-remove-btn"
           onClick=${e => { e.stopPropagation(); onRemove(); }}
           title="Remove item"
         >✕</button>
@@ -57,14 +57,16 @@ export function ItemCard({ item, index, total, deckId, onChange, onRemove, initi
       ${!collapsed && html`
         <div class="item-body">
 
-          <div class="field-label">
-            <span>Question <span class="req">*</span></span>
-            <input
-              type="text"
-              value=${item.title}
-              placeholder="Longest river in the world"
-              onInput=${e => updateTitle(e.target.value)}
-            />
+          <div class="field-with-id">
+            <label class="field-label">
+              <span>Question <span class="req">*</span></span>
+              <input
+                type="text"
+                value=${item.title}
+                placeholder="Longest river in the world"
+                onInput=${e => updateTitle(e.target.value)}
+              />
+            </label>
             ${item.id && html`<small class="id-preview">id: ${item.id}</small>`}
           </div>
 

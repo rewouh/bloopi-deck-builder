@@ -79,6 +79,7 @@ button.outline:not(:disabled):active { transform: scale(.93)  !important; }
 .field-label input, .field-label select, .field-label textarea { margin-bottom: 0 !important; }
 .field-hint { font-size: .78rem; color: var(--pico-muted-color); font-weight: 600; margin: 0; }
 .req { color: var(--pico-primary); }
+.field-with-id { display: flex; flex-direction: column; gap: .2rem; }
 
 /* ── Tag input ── */
 .tag-wrap {
@@ -162,15 +163,14 @@ button.outline:not(:disabled):active { transform: scale(.93)  !important; }
 .item-body { display: flex; flex-direction: column; gap: .75rem; margin-top: .9rem; padding-top: .9rem; border-top: 1px solid var(--pico-muted-border-color); animation: fade-in .15s ease; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 
-.remove-btn {
-  background: var(--incorrect-bg) !important;
-  color: var(--incorrect) !important;
-  border: none !important; box-shadow: none !important;
-  padding: .2rem .65rem !important; font-size: .8rem; font-weight: 900;
-  flex-shrink: 0;
+.item-remove-btn {
+  all: unset; cursor: pointer;
+  font-size: .85rem; font-weight: 900;
+  color: var(--incorrect); opacity: .45;
+  flex-shrink: 0; line-height: 1;
+  transition: opacity .15s;
 }
-.remove-btn:hover:not(:disabled) { background: rgba(220,38,38,.22) !important; transform: translateY(-1px) !important; box-shadow: none !important; }
-.remove-btn:active:not(:disabled) { transform: translateY(1px) !important; }
+.item-remove-btn:hover { opacity: 1; }
 
 /* ── ID preview ── */
 .id-preview { font-size: .73rem; color: var(--pico-muted-color); font-family: monospace; letter-spacing: .01em; }
@@ -222,6 +222,31 @@ button.outline:not(:disabled):active { transform: scale(.93)  !important; }
   white-space: nowrap;
 }
 .toast--err { background: var(--incorrect-bg); color: var(--incorrect); }
+
+/* ── Next steps modal ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,.55); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+  animation: fade-in .2s ease;
+}
+.modal-card {
+  background: var(--pico-card-background-color);
+  border-radius: var(--pico-border-radius);
+  padding: 1.75rem; max-width: 400px; width: 100%;
+  box-shadow: 0 24px 64px rgba(0,0,0,.3);
+  animation: float-in .25s var(--spring);
+}
+.modal-card h3 { margin: 0 0 .4rem; font-size: 1.25rem; font-weight: 900; }
+.modal-card > p { color: var(--pico-muted-color); font-size: .92rem; margin: 0 0 .65rem; }
+.modal-card ol { padding-left: 1.2rem; margin: 0 0 .75rem; display: flex; flex-direction: column; gap: .35rem; }
+.modal-card ol li { font-size: .92rem; color: var(--pico-muted-color); }
+.modal-card ol li a { color: var(--pico-primary); text-decoration: none; font-weight: 700; }
+.modal-card ol li a:hover { text-decoration: underline; }
+.modal-card code { font-size: .82rem; background: var(--pico-muted-border-color); padding: .1rem .35rem; border-radius: .35rem; }
+.modal-card button { width: 100%; margin-top: .25rem; }
+.modal-alt { font-size: .82rem !important; }
 
 /* ── Guidelines ── */
 .guidelines-details { margin-bottom: 2rem; border-radius: var(--pico-border-radius); overflow: hidden; }
