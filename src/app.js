@@ -7,8 +7,21 @@ import { ItemCard } from './components/ItemCard.js';
 let _keyCounter = 0;
 const nextKey = () => ++_keyCounter;
 
+const STOP_WORDS = new Set([
+  'a', 'an', 'the',
+  'and', 'or', 'but', 'nor',
+  'in', 'of', 'at', 'by', 'for', 'with', 'on', 'to', 'from',
+  'into', 'through', 'during', 'before', 'after', 'above', 'below', 'between', 'over', 'under', 'off',
+  'is', 'are', 'was', 'were', 'be', 'been', 'being',
+  'have', 'has', 'had', 'do', 'does', 'did',
+  'will', 'would', 'could', 'should', 'may', 'might', 'must',
+  'that', 'this', 'these', 'those', 'it', 'its', 'as', 'if',
+]);
+
 export function slugify(str) {
-  return str.toLowerCase().trim().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  const words = str.toLowerCase().trim().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean);
+  const filtered = words.filter(w => !STOP_WORDS.has(w));
+  return (filtered.length ? filtered : words).join('_');
 }
 
 function defaultDeck() {
