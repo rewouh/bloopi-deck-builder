@@ -66,7 +66,7 @@ export function ItemCard({ item, index, total, deckId, onChange, onRemove, initi
               <input
                 type="text"
                 value=${item.title}
-                placeholder="Longest river in the world"
+                placeholder="longest river in the world"
                 onInput=${e => updateTitle(e.target.value)}
               />
             </label>
