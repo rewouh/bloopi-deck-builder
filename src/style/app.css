@@ -212,18 +212,19 @@ button.outline:not(:disabled):active { transform: scale(.93)  !important; }
 .footer-btn { min-width: 155px; }
 
 /* ── Toast ── */
-@keyframes toast-in  { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes toast-in  { from { transform: translate(-50%, 12px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
 @keyframes toast-out { from { opacity: 1; } to { opacity: 0; } }
 .toast {
   position: fixed; bottom: 5rem; left: 50%; transform: translateX(-50%);
-  background: var(--correct-bg); color: var(--correct);
-  font-size: .9rem; font-weight: 800;
-  padding: .55rem 1.1rem; border-radius: 50em;
+  background: #059669; color: #fff;
+  font-size: .88rem; font-weight: 800;
+  padding: .55rem 1.2rem; border-radius: 50em;
   pointer-events: none; z-index: 200;
+  box-shadow: 0 4px 16px rgba(0,0,0,.18);
   animation: toast-in .25s var(--spring) both, toast-out .3s 2.5s both;
   white-space: nowrap;
 }
-.toast--err { background: var(--incorrect-bg); color: var(--incorrect); }
+.toast--err { background: #dc2626; }
 
 /* ── Draft actions ── */
 .draft-actions { display: flex; gap: .6rem; margin-top: .75rem; }
