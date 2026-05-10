@@ -88,7 +88,14 @@ function App() {
   function updateMeta(field, value) {
     setDeck(d => {
       const next = { ...d, [field]: value };
-      if (field === 'name' && !idManual) next.id = slugify(value);
+      if (field === 'name' && !idManual) {
+        next.id = slugify(value);
+        next.items = d.items.map(item =>
+          item._idManual
+            ? item
+            : { ...item, id: [next.id, slugify(item.title)].filter(Boolean).join('_') }
+        );
+      }
       return next;
     });
   }
