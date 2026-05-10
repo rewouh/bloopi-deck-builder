@@ -39,27 +39,16 @@ export function DeckMetaForm({ deck, onUpdate, onIdChange }) {
       <h2 class="section-title">Deck info</h2>
       <article class="meta-card">
 
-        <div class="form-row">
-          <label class="field-label">
-            <span>Name <span class="req">*</span></span>
-            <input
-              type="text"
-              value=${deck.name}
-              placeholder="World Geography"
-              onInput=${e => onUpdate('name', e.target.value)}
-            />
-          </label>
-          <label class="field-label">
-            <span>ID <span class="req">*</span></span>
-            <input
-              type="text"
-              value=${deck.id}
-              placeholder="world_geography"
-              onInput=${e => onIdChange(e.target.value)}
-            />
-            <small class="field-hint">Snake_case · auto-generated from name</small>
-          </label>
-        </div>
+        <label class="field-label">
+          <span>Name <span class="req">*</span></span>
+          <input
+            type="text"
+            value=${deck.name}
+            placeholder="World Geography"
+            onInput=${e => onUpdate('name', e.target.value)}
+          />
+          ${deck.id && html`<small class="id-preview">id: ${deck.id}</small>`}
+        </label>
 
         <label class="field-label">
           <span>Description <span class="req">*</span></span>

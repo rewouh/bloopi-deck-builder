@@ -192,6 +192,20 @@ function App() {
         </button>
       </section>
 
+      <details class="guidelines-details">
+        <summary>Deck building guidelines</summary>
+        <div class="guidelines-body">
+          <ul>
+            <li><strong>Write direct prompts, not full questions</strong> — "Longest river in the world" not "What is the longest river in the world?" Skip filler words that waste time during review.</li>
+            <li><strong>One clear correct answer per item</strong> — if multiple answers are plausible, reframe the question to make it unambiguous.</li>
+            <li><strong>The mnemonic is required</strong> — it's the core of the learning experience. A bad mnemonic is worse than none; make it vivid and specific.</li>
+            <li><strong>20–50 items</strong> — below 20 feels thin, above 50 becomes a grind.</li>
+            <li><strong>End the deck name with a two-digit index</strong> — "World Geography 01", not "World Geography". This leaves room for related decks later (02, 03…) without renaming.</li>
+            <li><strong>AI is a starting point, not a source</strong> — triple-check every fact and rewrite every mnemonic. AI-generated mnemonics often sound plausible but don't actually help recall.</li>
+          </ul>
+        </div>
+      </details>
+
       <footer class="builder-footer">
         <button type="button" class="outline secondary footer-btn" onClick=${importDeck}>↑ Import JSON</button>
         <button type="button" class="footer-btn" onClick=${exportDeck}>↓ Download JSON</button>
