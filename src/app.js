@@ -208,15 +208,15 @@ function App() {
       </header>
 
       <details class="guidelines-details">
-        <summary>Deck building guidelines</summary>
+        <summary>A few things to keep in mind</summary>
         <div class="guidelines-body">
           <ul>
-            <li><strong>Write direct prompts, not full questions</strong> — "longest river in the world" not "What is the longest river in the world?" Skip filler words that waste time during review. No capital letter at the start.</li>
-            <li><strong>One clear correct answer per item</strong> — if multiple answers are plausible, reframe the question to make it unambiguous.</li>
-            <li><strong>The mnemonic is required</strong> — it's the core of the learning experience. A bad mnemonic is worse than none; make it vivid and specific.</li>
-            <li><strong>20–50 items</strong> — below 20 feels thin, above 50 becomes a grind.</li>
-            <li><strong>End the deck name with a two-digit index</strong> — "World Geography 01", not "World Geography". This leaves room for related decks later (02, 03…) without renaming.</li>
-            <li><strong>AI is a starting point, not a source</strong> — triple-check every fact and rewrite every mnemonic. AI-generated mnemonics often sound plausible but don't actually help recall.</li>
+            <li><strong>Keep prompts direct</strong> — "longest river in the world", not "What is the longest river in the world?". No capital at the start, cut the filler.</li>
+            <li><strong>One unambiguous answer</strong> — if multiple answers could work, reframe until only one does.</li>
+            <li><strong>The mnemonic is the whole point</strong> — don't skip it and don't phone it in. Vivid and specific beats clever every time. A lazy mnemonic is worse than none.</li>
+            <li><strong>20–50 items is the sweet spot</strong> — below that feels thin, above it becomes a slog for whoever's reviewing.</li>
+            <li><strong>End the deck name with a two-digit number</strong> — "World Geography 01", not "World Geography". Leaves room for sequels without a rename.</li>
+            <li><strong>If you use AI: it drafts, you verify</strong> — triple-check facts and rewrite mnemonics from scratch. AI-generated ones rarely actually help recall.</li>
           </ul>
         </div>
       </details>
@@ -272,13 +272,13 @@ function App() {
         <div class="modal-overlay" onClick=${() => setShowNextSteps(false)}>
           <div class="modal-card" onClick=${e => e.stopPropagation()}>
             <h3>Deck downloaded!</h3>
-            <p>To submit it to Bloopi:</p>
+            <p>Thanks for building one — here's how to get it into Bloopi:</p>
             <ol>
               <li>Fork the <a href="https://github.com/rewouh/bloopi" target="_blank" rel="noopener noreferrer">Bloopi repository</a></li>
               <li>Drop your JSON file into the <code>decks/</code> folder</li>
               <li>Open a pull request</li>
             </ol>
-            <p class="modal-alt">Not on GitHub? Paste the file content on <a href="https://pastebin.com" target="_blank" rel="noopener noreferrer">Pastebin</a> and send the link to <a href="mailto:pbraudcontact@gmail.com">pbraudcontact@gmail.com</a> — no file attachments.</p>
+            <p class="modal-alt">Not on GitHub? No worries — paste the file content on <a href="https://pastebin.com" target="_blank" rel="noopener noreferrer">Pastebin</a> and send the link to <a href="mailto:pbraudcontact@gmail.com">pbraudcontact@gmail.com</a>.</p>
             <button type="button" onClick=${() => setShowNextSteps(false)}>Got it</button>
           </div>
         </div>
