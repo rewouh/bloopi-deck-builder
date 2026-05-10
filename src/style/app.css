@@ -215,7 +215,7 @@ button.outline:not(:disabled):active { transform: scale(.93)  !important; }
 @keyframes toast-in  { from { transform: translate(-50%, 12px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
 @keyframes toast-out { from { opacity: 1; } to { opacity: 0; } }
 .toast {
-  position: fixed; bottom: 5rem; left: 50%; transform: translateX(-50%);
+  position: fixed; bottom: 7rem; left: 50%; transform: translateX(-50%);
   background: #059669; color: #fff;
   font-size: .88rem; font-weight: 800;
   padding: .55rem 1.2rem; border-radius: 50em;
