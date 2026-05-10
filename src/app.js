@@ -160,7 +160,7 @@ function App() {
         <summary>Deck building guidelines</summary>
         <div class="guidelines-body">
           <ul>
-            <li><strong>Write direct prompts, not full questions</strong> — "Longest river in the world" not "What is the longest river in the world?" Skip filler words that waste time during review.</li>
+            <li><strong>Write direct prompts, not full questions</strong> — "longest river in the world" not "What is the longest river in the world?" Skip filler words that waste time during review. No capital letter at the start.</li>
             <li><strong>One clear correct answer per item</strong> — if multiple answers are plausible, reframe the question to make it unambiguous.</li>
             <li><strong>The mnemonic is required</strong> — it's the core of the learning experience. A bad mnemonic is worse than none; make it vivid and specific.</li>
             <li><strong>20–50 items</strong> — below 20 feels thin, above 50 becomes a grind.</li>
