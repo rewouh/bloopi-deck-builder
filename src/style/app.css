@@ -42,14 +42,14 @@ button {
   transition: transform .15s var(--spring), box-shadow .15s ease, background-color .2s, opacity .2s !important;
 }
 button:disabled { opacity: .4; cursor: not-allowed; }
-button:not(.secondary):not(.outline):not(.contrast):not(.icon-btn):not(.remove-btn):not(.tag-remove):not(.add-variant-btn) {
+button:not(.secondary):not(.outline):not(.contrast):not(.icon-btn):not(.remove-btn):not(.tag-remove):not(.add-variant-btn):not(.item-remove-btn) {
   box-shadow: 0 5px 0 #6d28d9, 0 8px 18px rgba(139,92,246,.25) !important;
 }
-button:not(.secondary):not(.outline):not(.contrast):not(.icon-btn):not(.remove-btn):not(.tag-remove):not(.add-variant-btn):not(:disabled):hover {
+button:not(.secondary):not(.outline):not(.contrast):not(.icon-btn):not(.remove-btn):not(.tag-remove):not(.add-variant-btn):not(.item-remove-btn):not(:disabled):hover {
   transform: translateY(-4px) scale(1.04) !important;
   box-shadow: 0 10px 0 #6d28d9, 0 16px 28px rgba(139,92,246,.38) !important;
 }
-button:not(.secondary):not(.outline):not(.contrast):not(.icon-btn):not(.remove-btn):not(.tag-remove):not(.add-variant-btn):not(:disabled):active {
+button:not(.secondary):not(.outline):not(.contrast):not(.icon-btn):not(.remove-btn):not(.tag-remove):not(.add-variant-btn):not(.item-remove-btn):not(:disabled):active {
   transform: translateY(3px) scale(.97) !important;
   box-shadow: 0 1px 0 #6d28d9 !important;
 }
@@ -142,8 +142,10 @@ button.outline:not(:disabled):active { transform: scale(.93)  !important; }
   padding: 1rem 1.25rem; margin-bottom: .65rem;
   border-radius: var(--pico-border-radius);
   transition: box-shadow .2s;
+  cursor: pointer;
 }
 .item-card:focus-within { box-shadow: 0 0 0 2px rgba(139,92,246,.35); }
+.item-card--collapsed:hover { box-shadow: 0 0 0 2px rgba(139,92,246,.2); }
 
 .item-header {
   display: flex; align-items: center; gap: .55rem;
@@ -222,6 +224,10 @@ button.outline:not(:disabled):active { transform: scale(.93)  !important; }
   white-space: nowrap;
 }
 .toast--err { background: var(--incorrect-bg); color: var(--incorrect); }
+
+/* ── Draft actions ── */
+.draft-actions { display: flex; gap: .6rem; margin-top: .75rem; }
+.draft-actions button { flex: 1; }
 
 /* ── Next steps modal ── */
 .modal-overlay {

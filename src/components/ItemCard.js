@@ -41,8 +41,11 @@ export function ItemCard({ item, index, total, deckId, onChange, onRemove, initi
   const preview = item.title || `Item ${index + 1}`;
 
   return html`
-    <article class="item-card">
-      <div class="item-header" onClick=${() => setCollapsed(c => !c)}>
+    <article
+      class=${'item-card' + (collapsed ? ' item-card--collapsed' : '')}
+      onClick=${() => setCollapsed(c => !c)}
+    >
+      <div class="item-header">
         <span class="item-num">#${index + 1}</span>
         <span class="item-preview">${preview}</span>
         <span class=${'ready-dot' + (isReady ? ' ready-dot--ok' : ' ready-dot--no')} title=${isReady ? 'Ready' : 'Incomplete'}></span>
@@ -55,7 +58,7 @@ export function ItemCard({ item, index, total, deckId, onChange, onRemove, initi
       </div>
 
       ${!collapsed && html`
-        <div class="item-body">
+        <div class="item-body" onClick=${e => e.stopPropagation()}>
 
           <div class="field-with-id">
             <label class="field-label">

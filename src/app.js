@@ -1,11 +1,13 @@
 import { html } from 'https://esm.sh/htm/preact';
 import { render } from 'https://esm.sh/preact';
-import { useState } from 'https://esm.sh/preact/hooks';
+import { useState, useEffect } from 'https://esm.sh/preact/hooks';
 import { DeckMetaForm } from './components/DeckMetaForm.js';
 import { ItemCard } from './components/ItemCard.js';
 
 let _keyCounter = 0;
 const nextKey = () => ++_keyCounter;
+
+const DRAFT_KEY = 'bloopi_builder_draft';
 
 const STOP_WORDS = new Set([
   'a', 'an', 'the',
@@ -37,6 +39,46 @@ function App() {
   const [idManual, setIdManual] = useState(false);
   const [toast, setToast] = useState(null);
   const [showNextSteps, setShowNextSteps] = useState(false);
+  const [draftPrompt, setDraftPrompt] = useState(null);
+
+  // Check for a saved draft on first load
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(DRAFT_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (!saved?.deck) return;
+      const d = saved.deck;
+      if (!d.name && (!d.items || d.items.length === 0)) return;
+      setDraftPrompt(saved);
+    } catch {}
+  }, []);
+
+  // Auto-save whenever the deck changes (debounced)
+  useEffect(() => {
+    if (!deck.name && deck.items.length === 0) return;
+    const timer = setTimeout(() => {
+      try {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify({ deck, idManual }));
+      } catch {}
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [deck, idManual]);
+
+  function loadDraft() {
+    const { deck: d, idManual: im } = draftPrompt;
+    setDeck({
+      ...d,
+      items: (d.items || []).map(item => ({ ...item, _key: nextKey() })),
+    });
+    setIdManual(im ?? false);
+    setDraftPrompt(null);
+  }
+
+  function discardDraft() {
+    localStorage.removeItem(DRAFT_KEY);
+    setDraftPrompt(null);
+  }
 
   function showToast(msg, type = 'ok') {
     setToast({ msg, type });
@@ -76,16 +118,6 @@ function App() {
     setDeck(d => ({ ...d, items: d.items.filter((_, i) => i !== index) }));
   }
 
-  function moveItem(index, dir) {
-    setDeck(d => {
-      const items = [...d.items];
-      const to = index + dir;
-      if (to < 0 || to >= items.length) return d;
-      [items[index], items[to]] = [items[to], items[index]];
-      return { ...d, items };
-    });
-  }
-
   function exportDeck() {
     const output = {
       id: deck.id,
@@ -107,9 +139,9 @@ function App() {
     };
 
     const missing = [];
-    if (!output.id)   missing.push('Deck ID');
-    if (!output.name) missing.push('Deck name');
-    if (!output.author) missing.push('Author');
+    if (!output.id)          missing.push('Deck ID');
+    if (!output.name)        missing.push('Deck name');
+    if (!output.author)      missing.push('Author');
     if (output.items.length === 0) missing.push('at least one item');
 
     if (missing.length) {
@@ -144,14 +176,13 @@ function App() {
             tags: parsed.tags || [],
             items: (parsed.items || []).map(item => ({
               _key: nextKey(),
-              _idManual: true,
               _collapsed: true,
               ...item,
               answers: item.answers?.length ? item.answers : [''],
               notes: item.notes || '',
             })),
           });
-          setIdManual(true);
+          setIdManual(false);
           showToast(`Imported "${parsed.name || file.name}"`);
         } catch {
           showToast('Invalid JSON file', 'err');
@@ -211,7 +242,6 @@ function App() {
             initialCollapsed=${item._collapsed ?? false}
             onChange=${it => updateItem(i, it)}
             onRemove=${() => removeItem(i)}
-            onMove=${dir => moveItem(i, dir)}
           />
         `)}
 
@@ -241,8 +271,21 @@ function App() {
               <li>Drop your JSON file into the <code>decks/</code> folder</li>
               <li>Open a pull request</li>
             </ol>
-            <p class="modal-alt">Not on GitHub? Send the file to <a href="mailto:pbraudcontact@gmail.com">pbraudcontact@gmail.com</a> and I'll handle it.</p>
+            <p class="modal-alt">Not on GitHub? Paste the file content on <a href="https://pastebin.com" target="_blank" rel="noopener noreferrer">Pastebin</a> and send the link to <a href="mailto:pbraudcontact@gmail.com">pbraudcontact@gmail.com</a> — no file attachments.</p>
             <button type="button" onClick=${() => setShowNextSteps(false)}>Got it</button>
+          </div>
+        </div>
+      `}
+
+      ${draftPrompt && html`
+        <div class="modal-overlay">
+          <div class="modal-card">
+            <h3>Resume your draft?</h3>
+            <p>You have an unfinished deck: <strong>${draftPrompt.deck.name || 'Untitled'}</strong> · ${draftPrompt.deck.items?.length || 0} item(s).</p>
+            <div class="draft-actions">
+              <button type="button" class="outline secondary" onClick=${discardDraft}>Start fresh</button>
+              <button type="button" onClick=${loadDraft}>Resume</button>
+            </div>
           </div>
         </div>
       `}
