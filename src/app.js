@@ -80,7 +80,7 @@ function App() {
       author: deck.author,
       language: deck.language,
       tags: deck.tags,
-      items: deck.items.map(({ _key, _idManual, ...item }) => {
+      items: deck.items.map(({ _key, _idManual, _collapsed, ...item }) => {
         const out = {
           id: item.id,
           title: item.title,
@@ -131,6 +131,7 @@ function App() {
             items: (parsed.items || []).map(item => ({
               _key: nextKey(),
               _idManual: true,
+              _collapsed: true,
               ...item,
               answers: item.answers?.length ? item.answers : [''],
               notes: item.notes || '',
@@ -179,6 +180,7 @@ function App() {
             index=${i}
             total=${deck.items.length}
             deckId=${deck.id}
+            initialCollapsed=${item._collapsed ?? false}
             onChange=${it => updateItem(i, it)}
             onRemove=${() => removeItem(i)}
             onMove=${dir => moveItem(i, dir)}

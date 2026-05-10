@@ -138,20 +138,31 @@ button.outline:not(:disabled):active { transform: scale(.93)  !important; }
 
 /* ── Item card ── */
 .item-card {
-  padding: 1.25rem; margin-bottom: .85rem;
+  padding: 1rem 1.25rem; margin-bottom: .65rem;
   border-radius: var(--pico-border-radius);
   transition: box-shadow .2s;
 }
-.item-card > * + * { margin-top: .75rem; }
 .item-card:focus-within { box-shadow: 0 0 0 2px rgba(139,92,246,.35); }
 
 .item-header {
-  display: flex; align-items: center; gap: .6rem;
-  margin-bottom: .25rem;
+  display: flex; align-items: center; gap: .55rem;
+  cursor: pointer; user-select: none;
 }
-.item-num { font-size: .75rem; font-weight: 900; text-transform: uppercase; letter-spacing: .07em; color: var(--pico-muted-color); flex-shrink: 0; }
-.item-preview { flex: 1; font-size: .85rem; font-weight: 700; color: var(--pico-muted-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item-header:hover .item-preview { color: var(--pico-color); }
+.item-num { font-size: .7rem; font-weight: 900; text-transform: uppercase; letter-spacing: .07em; color: var(--pico-muted-color); flex-shrink: 0; }
+.item-preview { flex: 1; font-size: .88rem; font-weight: 700; color: var(--pico-muted-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.ready-dot { width: .55rem; height: .55rem; border-radius: 50em; flex-shrink: 0; }
+.ready-dot--ok { background: #059669; }
+.ready-dot--no { background: #f59e0b; }
+
+.collapse-arrow { font-size: .7rem; color: var(--pico-muted-color); flex-shrink: 0; transition: transform .2s var(--spring); }
+.collapse-arrow--open { transform: rotate(-180deg); }
+
 .item-actions { display: flex; gap: .3rem; flex-shrink: 0; }
+
+.item-body { display: flex; flex-direction: column; gap: .75rem; margin-top: .9rem; padding-top: .9rem; border-top: 1px solid var(--pico-muted-border-color); animation: fade-in .15s ease; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 
 .icon-btn { padding: .2rem .5rem !important; font-size: .8rem !important; line-height: 1.4; }
 

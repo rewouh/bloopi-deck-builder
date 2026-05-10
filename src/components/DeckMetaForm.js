@@ -41,7 +41,7 @@ export function DeckMetaForm({ deck, onUpdate, onIdChange }) {
 
         <div class="form-row">
           <label class="field-label">
-            Name <span class="req">*</span>
+            <span>Name <span class="req">*</span></span>
             <input
               type="text"
               value=${deck.name}
@@ -50,7 +50,7 @@ export function DeckMetaForm({ deck, onUpdate, onIdChange }) {
             />
           </label>
           <label class="field-label">
-            ID <span class="req">*</span>
+            <span>ID <span class="req">*</span></span>
             <input
               type="text"
               value=${deck.id}
@@ -62,7 +62,7 @@ export function DeckMetaForm({ deck, onUpdate, onIdChange }) {
         </div>
 
         <label class="field-label">
-          Description <span class="req">*</span>
+          <span>Description <span class="req">*</span></span>
           <input
             type="text"
             value=${deck.description}
@@ -73,7 +73,7 @@ export function DeckMetaForm({ deck, onUpdate, onIdChange }) {
 
         <div class="form-row">
           <label class="field-label">
-            Author <span class="req">*</span>
+            <span>Author <span class="req">*</span></span>
             <input
               type="text"
               value=${deck.author}
@@ -82,7 +82,7 @@ export function DeckMetaForm({ deck, onUpdate, onIdChange }) {
             />
           </label>
           <label class="field-label">
-            Language <span class="req">*</span>
+            <span>Language <span class="req">*</span></span>
             <select onChange=${e => onUpdate('language', e.target.value)}>
               ${LANGUAGES.map(l => html`
                 <option value=${l.code} selected=${deck.language === l.code}>${l.label}</option>
